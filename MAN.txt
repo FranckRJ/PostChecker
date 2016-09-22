@@ -1,7 +1,7 @@
 postChecker.exe [fichier] [reptition] [profondeurMax] [tailleMaxChaine] [afficherInfo]
 
 fichier (chaine de character) :
-	Nom du fichier à partir duquel il faut charger les pairs.
+	Nom du fichier à partir duquel il faut charger les paires.
 	Valeur par défaut : "pcp.txt"
 
 repetition ("true" ou "false") :
@@ -9,19 +9,19 @@ repetition ("true" ou "false") :
 	Valeur par défaut : "true"
 
 profondeurMax (entier positif) :
-	S'il est supérieur à 0, indique le nombre de pairs maximum à assembler.
+	S'il est supérieur à 0, indique le nombre de paires maximum à assembler.
 	Valeur par défaut : 500
 
 tailleMaxChaine (entier positif) :
-	S'il est supérieur à 0, indique la différence de taille maximum entre les chaines de caractère des 2 parties des pairs.
+	S'il est supérieur à 0, indique la différence de taille maximum entre les chaines de caractère des 2 parties des paires.
 	Il est conseillé de mettre entre 10 et 20 fois la différence entre la plus grande et la plus petite chaine de caractère.
 	Valeur par défaut : 20
 
-repetition ("true" ou "false") :
-	"true" pour afficher un message à chaque fois que le programme ajoute une pair, "false" sinon.
+afficherInfo ("true" ou "false") :
+	"true" pour afficher un message à chaque fois que le programme ajoute une paire, "false" sinon.
 	Valeur par défaut : "false"
-	
 
-Le fichier des pairs doit contenir une pair par lignes, les deux parties de la pair doivent être séparées par un espace. Il ne doit y avoir qu'un seul espace par ligne.
+
+Le fichier des paires doit contenir une paire par lignes, les deux parties de la paire doivent être séparées par un espace. Il ne doit y avoir qu'un seul espace par ligne.
 Si le "Nombre de nodes arrete car trop profondes" et le "Nombre de nodes arrete car difference entre chaines trop grande" sont à 0, et que le programme n'a pas trouvé de résultat, c'est qu'il n'en existe pas, sinon il est possible qu'il en existe un (mais de moins en moins probable au fur et à mesure que "profondeurMax" et "tailleMaxChaine" sont augmentés).
 Le programme doit être compilé avec l'option "--std=c++11".
