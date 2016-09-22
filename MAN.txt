@@ -1,27 +1,27 @@
 postChecker.exe [fichier] [reptition] [profondeurMax] [tailleMaxChaine] [afficherInfo]
 
 fichier (chaine de character) :
-	Nom du fichier à partir duquel il faut charger les paires.
-	Valeur par défaut : "pcp.txt"
+	Nom du fichier Ã  partir duquel il faut charger les paires.
+	Valeur par dÃ©faut : "pcp.txt"
 
 repetition ("true" ou "false") :
-	"true" pour activer la vérification des répétitions, "false" sinon.
-	Valeur par défaut : "true"
+	"true" pour activer la vÃ©rification des rÃ©pÃ©titions, "false" sinon.
+	Valeur par dÃ©faut : "true"
 
 profondeurMax (entier positif) :
-	S'il est supérieur à 0, indique le nombre de paires maximum à assembler.
-	Valeur par défaut : 500
+	S'il est supÃ©rieur Ã  0, indique le nombre de paires maximum Ã  assembler.
+	Valeur par dÃ©faut : 500
 
 tailleMaxChaine (entier positif) :
-	S'il est supérieur à 0, indique la différence de taille maximum entre les chaines de caractère des 2 parties des paires.
-	Il est conseillé de mettre entre 10 et 20 fois la différence entre la plus grande et la plus petite chaine de caractère.
-	Valeur par défaut : 20
+	S'il est supÃ©rieur Ã  0, indique la diffÃ©rence de taille maximum entre les chaines de caractÃ¨re des 2 parties des paires.
+	Il est conseillÃ© de mettre entre 10 et 20 fois la diffÃ©rence entre la plus grande et la plus petite chaine de caractÃ¨re.
+	Valeur par dÃ©faut : 20
 
 afficherInfo ("true" ou "false") :
-	"true" pour afficher un message à chaque fois que le programme ajoute une paire, "false" sinon.
-	Valeur par défaut : "false"
+	"true" pour afficher un message Ã  chaque fois que le programme ajoute une paire, "false" sinon.
+	Valeur par dÃ©faut : "false"
 
 
-Le fichier des paires doit contenir une paire par lignes, les deux parties de la paire doivent être séparées par un espace. Il ne doit y avoir qu'un seul espace par ligne.
-Si le "Nombre de nodes arrete car trop profondes" et le "Nombre de nodes arrete car difference entre chaines trop grande" sont à 0, et que le programme n'a pas trouvé de résultat, c'est qu'il n'en existe pas, sinon il est possible qu'il en existe un (mais de moins en moins probable au fur et à mesure que "profondeurMax" et "tailleMaxChaine" sont augmentés).
-Le programme doit être compilé avec l'option "--std=c++11".
+Le fichier des paires doit contenir une paire par lignes, les deux parties de la paire doivent Ãªtre sÃ©parÃ©es par un espace. Il ne doit y avoir qu'un seul espace par ligne.
+Si le "Nombre de nodes arrete car trop profondes" et le "Nombre de nodes arrete car difference entre chaines trop grande" sont Ã  0, et que le programme n'a pas trouvÃ© de rÃ©sultat, c'est qu'il n'en existe pas, sinon il est possible qu'il en existe un (mais de moins en moins probable au fur et Ã  mesure que "profondeurMax" et "tailleMaxChaine" sont augmentÃ©s).
+Le programme doit Ãªtre compilÃ© avec l'option "--std=c++11".
