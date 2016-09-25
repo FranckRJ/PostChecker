@@ -4,7 +4,7 @@
 #include "postNodeHandler.hpp"
 
 postNodeHandler::postNodeHandler(std::list<postString>* newListOfAllPairs) :
-	listOfAllPairs(newListOfAllPairs)
+                 listOfAllPairs(newListOfAllPairs)
 {
 }
 
@@ -14,156 +14,156 @@ bool postNodeHandler::testIfCorrespondenceIsMaybePossible()
     bool matchEnding = false;
 
     for(const postString& thisPair : *listOfAllPairs)
-	{
-		if(thisPair.first.empty() == true || thisPair.second.empty() == true)
-		{
-			return false;
-		}
+    {
+        if(thisPair.first.empty() == true || thisPair.second.empty() == true)
+        {
+            return false;
+        }
 
-		if(firstsCharsMatch(thisPair) == true)
-		{
-			matchBegining = true;
-			if(checkForRepeat == false || listOfAllDifferencesEncountered.count(getDifferenceFromPair(thisPair)) == 0)
-			{
-				listOfCurrentLeafs.push_back(createNewNode(thisPair, true));
+        if(firstsCharsMatch(thisPair) == true)
+        {
+            matchBegining = true;
+            if(checkForRepeat == false || listOfAllDifferencesEncountered.count(getDifferenceFromPair(thisPair)) == 0)
+            {
+                listOfCurrentLeafs.push_back(createNewNode(thisPair, true));
 
-				if(checkIfNodeIsFinal(*listOfCurrentLeafs.back()) == true)
-				{
-					successPair = buildSuccessPairFromNode(*listOfCurrentLeafs.back());
+                if(checkIfNodeIsFinal(*listOfCurrentLeafs.back()) == true)
+                {
+                    successPair = buildSuccessPairFromNode(*listOfCurrentLeafs.back());
                     handlerStatus = handlerStatusEnum::SUCCESS;
-					return true;
-				}
-			}
-		}
-		if(lastsCharsMatch(thisPair) == true)
-		{
-			matchEnding = true;
-		}
-	}
+                    return true;
+                }
+            }
+        }
+        if(lastsCharsMatch(thisPair) == true)
+        {
+            matchEnding = true;
+        }
+    }
 
-	if(matchBegining == true && matchEnding == true)
-	{
+    if(matchBegining == true && matchEnding == true)
+    {
         handlerStatus = handlerStatusEnum::IN_PROGRESS;
-		return true;
-	}
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 bool postNodeHandler::makeNewNodesOrUpdateCurrents()
 {
-	++currentDepthForNodes;
+    ++currentDepthForNodes;
 
-	for(std::list<std::shared_ptr<postNode>>::iterator ite = listOfCurrentLeafs.begin(); ite != listOfCurrentLeafs.end(); )
-	{
-		std::list<postString> listOfCompatiblePair;
+    for(std::list<std::shared_ptr<postNode>>::iterator ite = listOfCurrentLeafs.begin(); ite != listOfCurrentLeafs.end(); )
+    {
+        std::list<postString> listOfCompatiblePair;
 
-		for(const postString& thisPair : *listOfAllPairs)
-		{
-			if(firstsCharsMatch((*ite)->currentDifference + thisPair) == true)
-			{
-				listOfCompatiblePair.push_back(thisPair);
-			}
-		}
+        for(const postString& thisPair : *listOfAllPairs)
+        {
+            if(firstsCharsMatch((*ite)->currentDifference + thisPair) == true)
+            {
+                listOfCompatiblePair.push_back(thisPair);
+            }
+        }
 
-		if(listOfCompatiblePair.empty() == true)
-		{
-			ite = listOfCurrentLeafs.erase(ite);
-			++numberOfNodesWithoutResult;
-			continue;
-		}
-		else if(listOfCompatiblePair.size() == 1)
-		{
-			updateNode(**ite, listOfCompatiblePair.back(), false);
+        if(listOfCompatiblePair.empty() == true)
+        {
+            ite = listOfCurrentLeafs.erase(ite);
+            ++numberOfNodesWithoutResult;
+            continue;
+        }
+        else if(listOfCompatiblePair.size() == 1)
+        {
+            updateNode(**ite, listOfCompatiblePair.back(), false);
 
-			if(checkIfNodeIsFinal(**ite) == true)
-			{
+            if(checkIfNodeIsFinal(**ite) == true)
+            {
                 handlerStatus = handlerStatusEnum::SUCCESS;
-				successPair = buildSuccessPairFromNode(**ite);
-				return true;
-			}
+                successPair = buildSuccessPairFromNode(**ite);
+                return true;
+            }
 
-			if(checkForRepeat == true)
-			{
-				if(checkIfCurrentDifferenceIsRepeated(**ite) == true)
-				{
-					ite = listOfCurrentLeafs.erase(ite);
-					++numberOfNodesRepeated;
-					continue;
-				}
-				else
-				{
-					listOfAllDifferencesEncountered.insert((*ite)->currentDifference);
-				}
-			}
-			if(maxDifferenceBetweenStringsSizeInPair > 0)
-			{
-				if(getStringSizeDifferenceFromPair((*ite)->currentDifference) > maxDifferenceBetweenStringsSizeInPair)
-				{
-					ite = listOfCurrentLeafs.erase(ite);
-					++numberOfNodesStringDifferenceExceeded;
-					continue;
-				}
-			}
-		}
-		else
-		{
-			eraseDifferenceOfCorrespondence(**ite);
+            if(checkForRepeat == true)
+            {
+                if(checkIfCurrentDifferenceIsRepeated(**ite) == true)
+                {
+                    ite = listOfCurrentLeafs.erase(ite);
+                    ++numberOfNodesRepeated;
+                    continue;
+                }
+                else
+                {
+                    listOfAllDifferencesEncountered.insert((*ite)->currentDifference);
+                }
+            }
+            if(maxDifferenceBetweenStringsSizeInPair > 0)
+            {
+                if(getStringSizeDifferenceFromPair((*ite)->currentDifference) > maxDifferenceBetweenStringsSizeInPair)
+                {
+                    ite = listOfCurrentLeafs.erase(ite);
+                    ++numberOfNodesStringDifferenceExceeded;
+                    continue;
+                }
+            }
+        }
+        else
+        {
+            eraseDifferenceOfCorrespondence(**ite);
 
-			for(const postString& thisPair : listOfCompatiblePair)
-			{
-				std::list<std::shared_ptr<postNode>>::iterator newIte;
-				newIte = listOfCurrentLeafs.insert(listOfCurrentLeafs.begin(), createNewNode((*ite)->currentDifference + thisPair, false, *ite));
+            for(const postString& thisPair : listOfCompatiblePair)
+            {
+                std::list<std::shared_ptr<postNode>>::iterator newIte;
+                newIte = listOfCurrentLeafs.insert(listOfCurrentLeafs.begin(), createNewNode((*ite)->currentDifference + thisPair, false, *ite));
 
-				if(checkIfNodeIsFinal(**newIte) == true)
-				{
+                if(checkIfNodeIsFinal(**newIte) == true)
+                {
                     handlerStatus = handlerStatusEnum::SUCCESS;
-					successPair = buildSuccessPairFromNode(**newIte);
-					return true;
-				}
+                    successPair = buildSuccessPairFromNode(**newIte);
+                    return true;
+                }
 
-				if(checkForRepeat == true)
-				{
-					if(checkIfCurrentDifferenceIsRepeated(**newIte) == true)
-					{
-						listOfCurrentLeafs.erase(newIte);
-						++numberOfNodesRepeated;
-					}
-					else
-					{
-						listOfAllDifferencesEncountered.insert((*newIte)->currentDifference);
-					}
-				}
-				if(maxDifferenceBetweenStringsSizeInPair > 0)
-				{
-					if(getStringSizeDifferenceFromPair((*newIte)->currentDifference) > maxDifferenceBetweenStringsSizeInPair)
-					{
-						listOfCurrentLeafs.erase(newIte);
-						++numberOfNodesStringDifferenceExceeded;
-					}
-				}
-			}
+                if(checkForRepeat == true)
+                {
+                    if(checkIfCurrentDifferenceIsRepeated(**newIte) == true)
+                    {
+                        listOfCurrentLeafs.erase(newIte);
+                        ++numberOfNodesRepeated;
+                    }
+                    else
+                    {
+                        listOfAllDifferencesEncountered.insert((*newIte)->currentDifference);
+                    }
+                }
+                if(maxDifferenceBetweenStringsSizeInPair > 0)
+                {
+                    if(getStringSizeDifferenceFromPair((*newIte)->currentDifference) > maxDifferenceBetweenStringsSizeInPair)
+                    {
+                        listOfCurrentLeafs.erase(newIte);
+                        ++numberOfNodesStringDifferenceExceeded;
+                    }
+                }
+            }
 
-			ite = listOfCurrentLeafs.erase(ite);
-			continue;
-		}
+            ite = listOfCurrentLeafs.erase(ite);
+            continue;
+        }
 
-		++ite;
-	}
+        ++ite;
+    }
 
-	if(maxDepthForNodes != 0 && currentDepthForNodes >= maxDepthForNodes)
-	{
+    if(maxDepthForNodes != 0 && currentDepthForNodes >= maxDepthForNodes)
+    {
         handlerStatus = handlerStatusEnum::ERROR;
-		numberOfNodesTimeout = listOfCurrentLeafs.size();
-		return true;
-	}
-	if(listOfCurrentLeafs.empty() == true)
-	{
+        numberOfNodesTimeout = listOfCurrentLeafs.size();
+        return true;
+    }
+    if(listOfCurrentLeafs.empty() == true)
+    {
         handlerStatus = handlerStatusEnum::ERROR;
-		return true;
-	}
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 const postString& postNodeHandler::getSuccessPair()
@@ -173,52 +173,52 @@ const postString& postNodeHandler::getSuccessPair()
 
 handlerStatusEnum postNodeHandler::getStatus()
 {
-	return handlerStatus;
+    return handlerStatus;
 }
 
 int postNodeHandler::getNumberOfNodesTimeout()
 {
-	return numberOfNodesTimeout;
+    return numberOfNodesTimeout;
 }
 
 int postNodeHandler::getNumberOfNodesRepeated()
 {
-	return numberOfNodesRepeated;
+    return numberOfNodesRepeated;
 }
 
 int postNodeHandler::getNumberOfNodesWithoutResult()
 {
-	return numberOfNodesWithoutResult;
+    return numberOfNodesWithoutResult;
 }
 
 int postNodeHandler::getNumberOfNodesStringDifferenceExceeded()
 {
-	return numberOfNodesStringDifferenceExceeded;
+    return numberOfNodesStringDifferenceExceeded;
 }
 
 int postNodeHandler::getCurrentDepthForNodes()
 {
-	return currentDepthForNodes;
+    return currentDepthForNodes;
 }
 
 int postNodeHandler::getNumberOfNodesActives()
 {
-	return listOfCurrentLeafs.size();
+    return listOfCurrentLeafs.size();
 }
 
 void postNodeHandler::setCheckForRepeat(bool newVal)
 {
-	checkForRepeat = newVal;
+    checkForRepeat = newVal;
 }
 
 void postNodeHandler::setMaxDepthForNodes(unsigned long newVal)
 {
-	maxDepthForNodes = newVal;
+    maxDepthForNodes = newVal;
 }
 
 void postNodeHandler::setMaxDifferenceBetweenStringsSizeInPair(size_t newVal)
 {
-	maxDifferenceBetweenStringsSizeInPair = newVal;
+    maxDifferenceBetweenStringsSizeInPair = newVal;
 }
 
 std::shared_ptr<postNode> postNodeHandler::createNewNode(postString thisPair, bool updateDifferenceEncountered, std::shared_ptr<postNode> thisParent)
@@ -333,7 +333,7 @@ postString postNodeHandler::getDifferenceFromPair(postString thisPair)
     return thisPair;
 }
 
-/*	Le cast en long long est pour autoriser une operation du type "2 - 5", car de base c'est un unsigned qui est retourne. */
+/* Le cast en long long est pour autoriser une operation du type "2 - 5", car de base c'est un unsigned qui est retourne. */
 size_t postNodeHandler::getStringSizeDifferenceFromPair(const postString& thisPair)
 {
     return std::abs(static_cast<long long>(thisPair.first.size()) - static_cast<long long>(thisPair.second.size()));

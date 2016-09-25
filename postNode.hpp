@@ -9,7 +9,7 @@ typedef std::pair<std::string, std::string> postString;
 
 postString operator+(const postString& param1, const postString& param2);
 
-/*	Methode de hash pour pouvoir utiliser l'unordered_set. */
+/* Methode de hash pour pouvoir utiliser l'unordered_set. */
 struct postString_hash
 {
     std::size_t operator()(const postString& paramToHash) const;
@@ -17,15 +17,15 @@ struct postString_hash
 
 struct postNode
 {
-	postNode() = default;
+    postNode() = default;
 
-	/*	Supression des methodes de copie car la classe contient des pointeurs. */
-	postNode(const postNode&) = delete;
-	postNode operator=(const postNode&) = delete;
+    /* Supression des methodes de copie car la classe contient des pointeurs. */
+    postNode(const postNode&) = delete;
+    postNode operator=(const postNode&) = delete;
 
-	std::shared_ptr<postNode> parentNode;
-	postString currentDifference;
-	postString currentCorrespondenceBuilded;
+    std::shared_ptr<postNode> parentNode;
+    postString currentDifference;
+    postString currentCorrespondenceBuilded;
 };
 
 #endif

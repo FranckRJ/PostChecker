@@ -8,8 +8,8 @@
 
 namespace postStringLoader
 {
-	/*	Cette fonction peut avoir des comportements imprevus si le contenu du fichier n'est pas ecrit de la bonne maniere. */
-	void loadAllPairFromFile(std::string thisFile, std::list<postString>& toThisList);
+    /* Cette fonction peut avoir des comportements imprevus si le contenu du fichier n'est pas ecrit de la bonne maniere. */
+    void loadAllPairFromFile(std::string thisFile, std::list<postString>& toThisList);
 }
 
 #endif
