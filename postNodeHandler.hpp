@@ -29,14 +29,14 @@ public:
        Utilisez getStatus() pour connaitre la reponse. */
     bool makeNewNodesOrUpdateCurrents();
 
-    const postString& getSuccessPair();
-    handlerStatusEnum getStatus();
-    int getNumberOfNodesTimeout();
-    int getNumberOfNodesRepeated();
-    int getNumberOfNodesWithoutResult();
-    int getNumberOfNodesStringDifferenceExceeded();
-    int getCurrentDepthForNodes();
-    int getNumberOfNodesActives();
+    const postString& getSuccessPair() const;
+    handlerStatusEnum getStatus() const;
+    int getNumberOfNodesTimeout() const;
+    int getNumberOfNodesRepeated() const;
+    int getNumberOfNodesWithoutResult() const;
+    int getNumberOfNodesStringDifferenceExceeded() const;
+    int getCurrentDepthForNodes() const;
+    int getNumberOfNodesActives() const;
     void setCheckForRepeat(bool newVal);
     void setMaxDepthForNodes(unsigned long newVal);
     void setMaxDifferenceBetweenStringsSizeInPair(size_t newVal);

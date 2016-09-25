@@ -166,42 +166,42 @@ bool postNodeHandler::makeNewNodesOrUpdateCurrents()
     return false;
 }
 
-const postString& postNodeHandler::getSuccessPair()
+const postString& postNodeHandler::getSuccessPair() const
 {
     return successPair;
 }
 
-handlerStatusEnum postNodeHandler::getStatus()
+handlerStatusEnum postNodeHandler::getStatus() const
 {
     return handlerStatus;
 }
 
-int postNodeHandler::getNumberOfNodesTimeout()
+int postNodeHandler::getNumberOfNodesTimeout() const
 {
     return numberOfNodesTimeout;
 }
 
-int postNodeHandler::getNumberOfNodesRepeated()
+int postNodeHandler::getNumberOfNodesRepeated() const
 {
     return numberOfNodesRepeated;
 }
 
-int postNodeHandler::getNumberOfNodesWithoutResult()
+int postNodeHandler::getNumberOfNodesWithoutResult() const
 {
     return numberOfNodesWithoutResult;
 }
 
-int postNodeHandler::getNumberOfNodesStringDifferenceExceeded()
+int postNodeHandler::getNumberOfNodesStringDifferenceExceeded() const
 {
     return numberOfNodesStringDifferenceExceeded;
 }
 
-int postNodeHandler::getCurrentDepthForNodes()
+int postNodeHandler::getCurrentDepthForNodes() const
 {
     return currentDepthForNodes;
 }
 
-int postNodeHandler::getNumberOfNodesActives()
+int postNodeHandler::getNumberOfNodesActives() const
 {
     return listOfCurrentLeafs.size();
 }
