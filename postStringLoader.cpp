@@ -2,7 +2,7 @@
 
 #include "postStringLoader.hpp"
 
-void postStringLoader::loadAllPairFromFile(std::string thisFile, std::list<postString>& toThisList)
+void postStringLoader::loadAllPairFromFile(const std::string& thisFile, std::list<postString>& toThisList)
 {
     std::ifstream fileForPairs(thisFile);
 

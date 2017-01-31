@@ -20,9 +20,9 @@ int main(int argc, char* argv[])
     }
     if(argc > 2)
     {
-        char valueChar = argv[2][0];
+        const char valueChar = argv[2][0];
 
-        myHandler.setCheckForRepeat((valueChar == 't' || valueChar == 'T') ? true : false);
+        myHandler.setCheckForRepeat(valueChar == 't' || valueChar == 'T');
     }
     if(argc > 3)
     {
@@ -34,9 +34,9 @@ int main(int argc, char* argv[])
     }
     if(argc > 5)
     {
-        char valueChar = argv[5][0];
+        const char valueChar = argv[5][0];
 
-        printInfoAtEveryDepth = (valueChar == 't' || valueChar == 'T') ? true : false;
+        printInfoAtEveryDepth = (valueChar == 't' || valueChar == 'T');
     }
 
     postStringLoader::loadAllPairFromFile(textFile, listOfAllPairs);

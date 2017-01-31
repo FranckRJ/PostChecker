@@ -9,7 +9,6 @@
 
 enum class handlerStatusEnum { NOT_STARTED, IN_PROGRESS, SUCCESS, ERROR };
 
-
 /* Aucune verification n'est faite quant a la validite de "newListOfAllPairs", si ce parametre vaut nul
    les autres methodes crasheront. */
 class postNodeHandler final
@@ -46,6 +45,7 @@ private:
     void eraseDifferenceOfCorrespondence(postNode& thisNode);
     bool checkIfCurrentDifferenceIsRepeated(const postNode& thisNode);
     bool checkIfNodeIsFinal(const postNode& thisNode);
+    bool checkIfNodeReachLimits(const postNode& thisNode);
     bool firstsCharsMatch(const postString& thisPair);
     bool lastsCharsMatch(const postString& thisPair);
     postString buildSuccessPairFromNode(const postNode& thisNode);

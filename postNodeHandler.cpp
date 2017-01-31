@@ -83,27 +83,10 @@ bool postNodeHandler::makeNewNodesOrUpdateCurrents()
                 return true;
             }
 
-            if(checkForRepeat == true)
+            if(checkIfNodeReachLimits(**ite) == true)
             {
-                if(checkIfCurrentDifferenceIsRepeated(**ite) == true)
-                {
-                    ite = listOfCurrentLeafs.erase(ite);
-                    ++numberOfNodesRepeated;
-                    continue;
-                }
-                else
-                {
-                    listOfAllDifferencesEncountered.insert((*ite)->currentDifference);
-                }
-            }
-            if(maxDifferenceBetweenStringsSizeInPair > 0)
-            {
-                if(getStringSizeDifferenceFromPair((*ite)->currentDifference) > maxDifferenceBetweenStringsSizeInPair)
-                {
-                    ite = listOfCurrentLeafs.erase(ite);
-                    ++numberOfNodesStringDifferenceExceeded;
-                    continue;
-                }
+                ite = listOfCurrentLeafs.erase(ite);
+                continue;
             }
         }
         else
@@ -122,25 +105,9 @@ bool postNodeHandler::makeNewNodesOrUpdateCurrents()
                     return true;
                 }
 
-                if(checkForRepeat == true)
+                if(checkIfNodeReachLimits(**newIte) == true)
                 {
-                    if(checkIfCurrentDifferenceIsRepeated(**newIte) == true)
-                    {
-                        listOfCurrentLeafs.erase(newIte);
-                        ++numberOfNodesRepeated;
-                    }
-                    else
-                    {
-                        listOfAllDifferencesEncountered.insert((*newIte)->currentDifference);
-                    }
-                }
-                if(maxDifferenceBetweenStringsSizeInPair > 0)
-                {
-                    if(getStringSizeDifferenceFromPair((*newIte)->currentDifference) > maxDifferenceBetweenStringsSizeInPair)
-                    {
-                        listOfCurrentLeafs.erase(newIte);
-                        ++numberOfNodesStringDifferenceExceeded;
-                    }
+                    listOfCurrentLeafs.erase(newIte);
                 }
             }
 
@@ -273,9 +240,35 @@ bool postNodeHandler::checkIfNodeIsFinal(const postNode& thisNode)
     return (thisNode.currentDifference.first.empty() == true && thisNode.currentDifference.second.empty() == true);
 }
 
+bool postNodeHandler::checkIfNodeReachLimits(const postNode& thisNode)
+{
+    if(checkForRepeat == true)
+    {
+        if(checkIfCurrentDifferenceIsRepeated(thisNode) == true)
+        {
+            ++numberOfNodesRepeated;
+            return true;
+        }
+        else
+        {
+            listOfAllDifferencesEncountered.insert(thisNode.currentDifference);
+        }
+    }
+    if(maxDifferenceBetweenStringsSizeInPair > 0)
+    {
+        if(getStringSizeDifferenceFromPair(thisNode.currentDifference) > maxDifferenceBetweenStringsSizeInPair)
+        {
+            ++numberOfNodesStringDifferenceExceeded;
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool postNodeHandler::firstsCharsMatch(const postString& thisPair)
 {
-    int minimumSize = std::min(thisPair.first.size(), thisPair.second.size());
+    const int minimumSize = std::min(thisPair.first.size(), thisPair.second.size());
 
     for(int i = 0; i < minimumSize; ++i)
     {
@@ -290,7 +283,7 @@ bool postNodeHandler::firstsCharsMatch(const postString& thisPair)
 
 bool postNodeHandler::lastsCharsMatch(const postString& thisPair)
 {
-    int minimumSize = std::min(thisPair.first.size(), thisPair.second.size());
+    const int minimumSize = std::min(thisPair.first.size(), thisPair.second.size());
 
     for(int i = 0; i < minimumSize; ++i)
     {
@@ -320,7 +313,7 @@ postString postNodeHandler::buildSuccessPairFromNode(const postNode& thisNode)
 
 postString postNodeHandler::getDifferenceFromPair(postString thisPair)
 {
-    int minimumSize = std::min(thisPair.first.size(), thisPair.second.size());
+    const int minimumSize = std::min(thisPair.first.size(), thisPair.second.size());
     int i = 0;
 
     while(i < minimumSize && thisPair.first.front() == thisPair.second.front())
