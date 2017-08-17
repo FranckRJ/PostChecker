@@ -66,17 +66,13 @@ int main(int argc, char* argv[])
         std::cout << "Niveau final : " << myHandler.getCurrentDepthForNodes();
         std::cout << ", nombre de nodes actives : " << myHandler.getNumberOfNodesActives() << std::endl << std::endl;
 
-        std::cout << "Termine, status : " << static_cast<int>(myHandler.getStatus()) << std::endl;
+        std::cout << "Termine, status : " << handlerStatusTool::statusToString(myHandler.getStatus()) << std::endl;
 
         if(myHandler.getStatus() == handlerStatusEnum::SUCCESS)
         {
             std::cout << "Resultat :" << std::endl;
             std::cout << myHandler.getSuccessPair().first << std::endl;
             std::cout << myHandler.getSuccessPair().second << std::endl;
-        }
-        else if(myHandler.getStatus() == handlerStatusEnum::ERROR)
-        {
-            std::cout << "Erreur, pas de resultat." << std::endl;
         }
         std::cout << std::endl;
 

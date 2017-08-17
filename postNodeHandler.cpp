@@ -3,6 +3,38 @@
 
 #include "postNodeHandler.hpp"
 
+std::string handlerStatusTool::statusToString(handlerStatusEnum thisStatus)
+{
+    switch(thisStatus)
+    {
+        case handlerStatusEnum::NOT_STARTED:
+        {
+            return "pas commence";
+            break;
+        }
+        case handlerStatusEnum::IN_PROGRESS:
+        {
+            return "en cours";
+            break;
+        }
+        case handlerStatusEnum::SUCCESS:
+        {
+            return "succes";
+            break;
+        }
+        case handlerStatusEnum::NO_RESULT_FOUND:
+        {
+            return "pas de resultat trouve";
+            break;
+        }
+        default:
+        {
+            return "invalide";
+            break;
+        }
+    }
+}
+
 postNodeHandler::postNodeHandler(std::list<postString>* newListOfAllPairs) :
                  listOfAllPairs(newListOfAllPairs)
 {
@@ -120,13 +152,13 @@ bool postNodeHandler::makeNewNodesOrUpdateCurrents()
 
     if(maxDepthForNodes != 0 && currentDepthForNodes >= maxDepthForNodes)
     {
-        handlerStatus = handlerStatusEnum::ERROR;
+        handlerStatus = handlerStatusEnum::NO_RESULT_FOUND;
         numberOfNodesTimeout = listOfCurrentLeafs.size();
         return true;
     }
     if(listOfCurrentLeafs.empty() == true)
     {
-        handlerStatus = handlerStatusEnum::ERROR;
+        handlerStatus = handlerStatusEnum::NO_RESULT_FOUND;
         return true;
     }
 

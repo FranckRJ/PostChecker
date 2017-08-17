@@ -4,10 +4,17 @@
 #include <list>
 #include <memory> //std::shared_ptr
 #include <unordered_set>
+#include <string>
 
 #include "postNode.hpp"
 
-enum class handlerStatusEnum { NOT_STARTED, IN_PROGRESS, SUCCESS, ERROR };
+enum class handlerStatusEnum { NOT_STARTED, IN_PROGRESS, SUCCESS, NO_RESULT_FOUND };
+
+namespace handlerStatusTool
+{
+    /* Retourne l'équivalent en string du status passé en paramètre. */
+    std::string statusToString(handlerStatusEnum thisStatus);
+}
 
 /* Aucune verification n'est faite quant a la validite de "newListOfAllPairs", si ce parametre vaut nul
    les autres methodes crasheront. */
