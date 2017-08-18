@@ -150,7 +150,7 @@ bool postNodeHandler::makeNewNodesOrUpdateCurrents()
         ++ite;
     }
 
-    if(maxDepthForNodes != 0 && currentDepthForNodes >= maxDepthForNodes)
+    if(maxDepthForNodes > 0 && currentDepthForNodes >= maxDepthForNodes)
     {
         handlerStatus = handlerStatusEnum::NO_RESULT_FOUND;
         numberOfNodesTimeout = listOfCurrentLeafs.size();
