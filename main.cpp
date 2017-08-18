@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 
     postStringLoader::loadAllPairFromFile(textFile, listOfAllPairs);
 
-    std::cout << "Liste de toutes les pairs :" << std::endl;
+    std::cout << "Liste de toutes les paires :" << std::endl;
     for(const postString& thisPair : listOfAllPairs)
     {
         std::cout << thisPair.first << " " <<thisPair.second << std::endl;
